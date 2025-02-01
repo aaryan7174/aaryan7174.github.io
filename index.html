@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI/ML Expert Portfolio</title>
+    <title>Aaryan Rana - AI/ML Expert Portfolio</title>
     <style>
-        /* CSS styles */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
         :root {
             --primary-color: #4a90e2;
             --secondary-color: #f39c12;
-            --background-color: #f4f4f4;
-            --text-color: #333;
+            --background-color: #0a192f;
+            --text-color: #e6f1ff;
+            --accent-color: #64ffda;
         }
 
         * {
@@ -20,10 +22,11 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             background-color: var(--background-color);
+            overflow-x: hidden;
         }
 
         .container {
@@ -33,8 +36,8 @@
         }
 
         header {
-            background-color: var(--primary-color);
-            color: #fff;
+            background-color: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px);
             padding: 1rem 0;
             position: fixed;
             width: 100%;
@@ -49,40 +52,63 @@
         }
 
         nav ul li a {
-            color: #fff;
+            color: var(--text-color);
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s ease;
         }
 
         nav ul li a:hover {
-            color: var(--secondary-color);
+            color: var(--accent-color);
         }
 
         section {
-            padding: 4rem 0;
+            padding: 6rem 0;
         }
 
         h1, h2 {
             margin-bottom: 1rem;
+            color: var(--accent-color);
         }
 
         .hero {
-            background-image: url('https://source.unsplash.com/random/1600x900/?artificial-intelligence');
-            background-size: cover;
-            background-position: center;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: #fff;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(10, 25, 47, 0.8);
             padding: 2rem;
             border-radius: 10px;
+            z-index: 1;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #0a192f, #172a45);
+            z-index: 0;
+        }
+
+        .tech-watermark {
+            position: absolute;
+            font-size: 4rem;
+            opacity: 0.1;
+            pointer-events: none;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .projects, .blogs {
@@ -92,15 +118,17 @@
         }
 
         .project-card, .blog-card {
-            background-color: #fff;
+            background-color: rgba(22, 37, 59, 0.5);
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 1.5rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
         }
 
         .project-card:hover, .blog-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
         }
 
         .contact form {
@@ -113,16 +141,19 @@
         input, textarea, button {
             width: 100%;
             padding: 0.5rem;
-            border: 1px solid #ddd;
+            background-color: rgba(22, 37, 59, 0.5);
+            border: 1px solid rgba(100, 255, 218, 0.3);
             border-radius: 5px;
+            color: var(--text-color);
         }
 
         button {
-            background-color: var(--primary-color);
-            color: #fff;
+            background-color: var(--accent-color);
+            color: var(--background-color);
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-weight: bold;
         }
 
         button:hover {
@@ -137,13 +168,14 @@
         }
 
         .social-links a {
-            color: var(--primary-color);
+            color: var(--accent-color);
             font-size: 1.5rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
         .social-links a:hover {
             color: var(--secondary-color);
+            transform: scale(1.2);
         }
 
         #chatbot {
@@ -152,11 +184,12 @@
             right: 20px;
             width: 300px;
             height: 400px;
-            background-color: #fff;
+            background-color: rgba(22, 37, 59, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: none;
             flex-direction: column;
+            border: 1px solid var(--accent-color);
         }
 
         #chatbot-messages {
@@ -173,6 +206,27 @@
         #chatbot-input input {
             flex-grow: 1;
             margin-right: 0.5rem;
+        }
+
+        .skill-bars {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-bar {
+            flex: 1;
+            background-color: rgba(22, 37, 59, 0.5);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 10px;
+            background-color: var(--accent-color);
+            width: 0;
+            transition: width 1s ease-in-out;
         }
 
         @media (max-width: 768px) {
@@ -204,6 +258,7 @@
         <nav class="container">
             <ul>
                 <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#blogs">Blogs</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -213,29 +268,58 @@
 
     <main>
         <section id="home" class="hero">
+            <div class="hero-bg"></div>
             <div class="hero-content">
-                <h1>John Doe</h1>
+                <h1>Aaryan Rana</h1>
                 <p>AI, ML, NLP, GenAI, and Data Science Expert</p>
             </div>
+            <span class="tech-watermark" style="top: 10%; left: 5%;">Docker</span>
+            <span class="tech-watermark" style="top: 30%; right: 10%;">Kubernetes</span>
+            <span class="tech-watermark" style="bottom: 20%; left: 15%;">AWS</span>
+            <span class="tech-watermark" style="bottom: 40%; right: 5%;">Airflow</span>
+            <span class="tech-watermark" style="top: 50%; left: 50%;">DagsHub</span>
+        </section>
+
+        <section id="about" class="container">
+            <h2>About Me</h2>
+            <p>I'm Aaryan Rana, a passionate AI/ML and Data Science enthusiast currently in my 3rd year (6th semester) at Chandigarh University. My journey in the world of technology and data has been exciting and full of learning experiences.</p>
+            <div class="skill-bars">
+                <div class="skill-bar">
+                    <div class="skill-progress" data-progress="82.4"></div>
+                    <p>10th Grade: 82.4%</p>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-progress="87.4"></div>
+                    <p>12th Grade: 87.4%</p>
+                </div>
+                <div class="skill-bar">
+                    <div class="skill-progress" data-progress="76.2"></div>
+                    <p>Current CGPA: 7.62</p>
+                </div>
+            </div>
+            <p>Education: Sainik School Kapurthala (10th and 12th)</p>
         </section>
 
         <section id="projects" class="container">
             <h2>Projects</h2>
             <div class="projects">
                 <div class="project-card">
-                    <h3>AI-Powered Image Recognition</h3>
-                    <p>A deep learning model for accurate image classification and object detection.</p>
-                    <a href="https://github.com/yourusername/image-recognition" target="_blank">GitHub</a>
+                    <h3>SynGen AI</h3>
+                    <p>A Synthetic Content Generator for Multimodal Experiences</p>
+                    <p>Technologies: LLMs, CV, NLP, Deep Learning, Stable Diffusion, GPT-4, DALL-E, WaveNet, OpenAI's Jukebox, React.js, Flask, Streamlit, AWS</p>
+                    <a href="#" target="_blank">Learn More</a>
                 </div>
                 <div class="project-card">
-                    <h3>NLP Chatbot</h3>
-                    <p>An intelligent chatbot using natural language processing for human-like conversations.</p>
-                    <a href="https://github.com/yourusername/nlp-chatbot" target="_blank">GitHub</a>
+                    <h3>GenAI-Powered Customer Feedback Analysis System</h3>
+                    <p>Analyze customer feedback using Generative AI and NLP</p>
+                    <p>Technologies: LangChain, Hugging Face Transformers, Flask, Power BI/Tableau, AWS, MongoDB, Streamlit</p>
+                    <a href="#" target="_blank">Learn More</a>
                 </div>
                 <div class="project-card">
-                    <h3>Predictive Analytics Dashboard</h3>
-                    <p>A data visualization tool for business intelligence and predictive analytics.</p>
-                    <a href="https://github.com/yourusername/predictive-analytics" target="_blank">GitHub</a>
+                    <h3>AI-Powered Digital Avatar</h3>
+                    <p>An AI assistant for real-world use in metro stations, bus stops, and educational institutions</p>
+                    <p>Technologies: NLP, Speech Recognition (WaveNet), LLMs, Flask, React.js, AWS</p>
+                    <a href="#" target="_blank">Learn More</a>
                 </div>
             </div>
         </section>
@@ -244,19 +328,19 @@
             <h2>Blogs</h2>
             <div class="blogs">
                 <div class="blog-card">
-                    <h3>The Future of AI in Healthcare</h3>
-                    <p>Exploring the potential impact of artificial intelligence on medical diagnosis and treatment.</p>
-                    <a href="https://medium.com/@yourusername/ai-in-healthcare" target="_blank">Read More</a>
+                    <h3>The Future of AI in Transportation</h3>
+                    <p>Exploring the potential impact of artificial intelligence on public transportation and urban mobility.</p>
+                    <a href="#" target="_blank">Read More</a>
                 </div>
                 <div class="blog-card">
-                    <h3>Demystifying Machine Learning Algorithms</h3>
-                    <p>A beginner-friendly guide to understanding popular machine learning algorithms.</p>
-                    <a href="https://medium.com/@yourusername/ml-algorithms-guide" target="_blank">Read More</a>
+                    <h3>Generative AI: Revolutionizing Content Creation</h3>
+                    <p>A deep dive into how generative AI is transforming various industries and creative processes.</p>
+                    <a href="#" target="_blank">Read More</a>
                 </div>
                 <div class="blog-card">
-                    <h3>Ethics in AI: Challenges and Solutions</h3>
-                    <p>Discussing the ethical considerations in AI development and deployment.</p>
-                    <a href="https://medium.com/@yourusername/ai-ethics" target="_blank">Read More</a>
+                    <h3>Data Science in Education: Personalizing Learning</h3>
+                    <p>Discussing the applications of data science in creating personalized learning experiences for students.</p>
+                    <a href="#" target="_blank">Read More</a>
                 </div>
             </div>
         </section>
@@ -270,13 +354,13 @@
                 <button type="submit">Send Message</button>
             </form>
             <div class="social-links">
-                <a href="https://linkedin.com/in/yourusername" target="_blank" title="LinkedIn">
+                <a href="https://linkedin.com/in/aaryanrana" target="_blank" title="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
-                <a href="https://github.com/yourusername" target="_blank" title="GitHub">
+                <a href="https://github.com/aaryanrana" target="_blank" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://medium.com/@yourusername" target="_blank" title="Medium">
+                <a href="https://medium.com/@aaryanrana" target="_blank" title="Medium">
                     <i class="fab fa-medium"></i>
                 </a>
             </div>
@@ -293,7 +377,6 @@
 
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script>
-        // JavaScript for interactivity
         document.addEventListener('DOMContentLoaded', function() {
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -304,6 +387,19 @@
                     });
                 });
             });
+
+            // Animate skill bars
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const progress = entry.target.getAttribute('data-progress');
+                        entry.target.style.width = `${progress}%`;
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            skillBars.forEach(bar => observer.observe(bar));
 
             // Form submission handling
             document.getElementById('contact-form').addEventListener('submit', function(e) {
@@ -319,8 +415,8 @@
             chatbotToggle.style.bottom = '20px';
             chatbotToggle.style.right = '20px';
             chatbotToggle.style.padding = '10px';
-            chatbotToggle.style.backgroundColor = 'var(--primary-color)';
-            chatbotToggle.style.color = '#fff';
+            chatbotToggle.style.backgroundColor = 'var(--accent-color)';
+            chatbotToggle.style.color = 'var(--background-color)';
             chatbotToggle.style.border = 'none';
             chatbotToggle.style.borderRadius = '5px';
             chatbotToggle.style.cursor = 'pointer';
@@ -336,6 +432,12 @@
                     chatbotToggle.style.display = 'block';
                 }
             });
+
+            // Animate tech watermarks
+            const watermarks = document.querySelectorAll('.tech-watermark');
+            watermarks.forEach((watermark, index) => {
+                watermark.style.animationDelay = `${index * 2}s`;
+            });
         });
 
         // Simple chatbot functionality
@@ -346,7 +448,7 @@
                 addMessage('You', message);
                 // Simulate AI response (replace with actual AI integration)
                 setTimeout(() => {
-                    addMessage('AI', `I'm a simple chatbot. You said: "${message}"`);
+                    addMessage('AI', `I'm an AI assistant. You asked about: "${message}". How can I help you with AI, ML, or Data Science topics?`);
                 }, 1000);
                 userInput.value = '';
             }
